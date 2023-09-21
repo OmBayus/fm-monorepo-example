@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/facility",
         "index": "apps/facility/src/index.html",
         "baseHref": "/",
-        "main": "apps/facility/src/main.tsx",
+        "main": "apps/facility/src/main.ts",
         "tsConfig": "apps/facility/tsconfig.app.json",
         "assets": ["apps/facility/src/favicon.ico", "apps/facility/src/assets"],
         "styles": ["apps/facility/src/styles.scss"],
@@ -40,16 +40,18 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false
+          "vendorChunk": false,
+          "webpackConfig": "apps/facility/webpack.config.prod.js"
         }
       }
     },
     "serve": {
-      "executor": "@nx/webpack:dev-server",
+      "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "facility:build",
-        "hmr": true
+        "hmr": true,
+        "port": 3001
       },
       "configurations": {
         "development": {
@@ -66,6 +68,23 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/facility/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "facility:build",
+        "watch": false,
+        "port": 3001
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "facility:build:development"
+        },
+        "production": {
+          "buildTarget": "facility:build:production"
+        }
       }
     },
     "test": {

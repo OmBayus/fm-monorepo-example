@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@fm/signum": ["libs/signum/src/index.ts"],
+      "@fm/signum2": ["libs/signum2/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
