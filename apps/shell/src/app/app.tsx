@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useAppDispatch, increment, useAppSelector } from '@fm/store';
 import NxWelcome from './nx-welcome';
 
 import { Link, Route, Routes } from 'react-router-dom';
@@ -13,8 +13,14 @@ const Asset = React.lazy(() => import('asset/Module'));
 const Facility = React.lazy(() => import('facility/Module'));
 
 export function App() {
+  const dispatch = useAppDispatch();
+  const counter = useAppSelector((state) => state.counter.value);
   return (
     <React.Suspense fallback={<div>loading..</div>}>
+      <div>
+        <h1>shell</h1>
+        <button onClick={() => dispatch(increment())}>{counter}</button>
+      </div>
       <ul>
         <li>
           <Link to="/">Home</Link>

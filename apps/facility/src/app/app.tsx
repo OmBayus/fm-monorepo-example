@@ -1,15 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import { Button } from '@fm/signum';
-
 import NxWelcome from './nx-welcome';
+import { useAppDispatch, increment, useAppSelector } from '@fm/store';
 
 export function App() {
+  const dispatch = useAppDispatch();
+  const counter = useAppSelector((state) => state.counter.value);
   return (
     <div>
-      <h1>facilitysa</h1>
-      <Button title="merhaba"/>
+      <div>
+        <h1>Facility</h1>
+        <button onClick={() => dispatch(increment())}>{counter}</button>
+      </div>
       <NxWelcome title="facility" />
     </div>
   );

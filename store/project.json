@@ -1,0 +1,50 @@
+{
+  "name": "store",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "store/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["store/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/store",
+        "tsConfig": "store/tsconfig.lib.json",
+        "project": "store/package.json",
+        "entryFile": "store/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "store/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "store/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
